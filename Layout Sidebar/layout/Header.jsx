@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
 import { PrimaryOffcanvasButton } from ".";
 
-const Header = forwardRef(({ title, children, className, settings = true, navs, ...props }, ref) => {
+const Header = forwardRef(({ title, children, className, navs, ...props }, ref) => {
     return (
         <header
             ref={ref}
-            className={`bg-body position-sticky top-0 ${className || 'py-2'} z-3`}
+            className={`bg-body position-sticky top-0 ${className || 'py-1'} z-3`}
             {...props}
         >
             <div className="container-fluid">
@@ -14,12 +14,13 @@ const Header = forwardRef(({ title, children, className, settings = true, navs, 
                         <PrimaryOffcanvasButton className="d-sm-none btn-light mt-1" />
 
                         {title && (
-                            <>
-                                <h1 className="mb-0 font-sans fw-normal fs-6 me-auto">
-                                    <small>{title}</small>
-                                </h1>
-                                {navs}
-                            </>
+                            <h1 className="mb-0 font-sans fw-normal fs-6 me-auto">
+                                <small>{title}</small>
+                            </h1>
+                        )}
+                        
+                        {navs && (
+                            <>{navs}</>
                         )}
                     </div>
                 </div>
