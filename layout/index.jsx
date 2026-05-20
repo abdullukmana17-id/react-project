@@ -1,55 +1,3 @@
-/**
- * SidebarLayout.jsx
- *
- * Layout komponen dengan dual sidebar, Bootstrap 5 offcanvas,
- * tinggi sidebar dinamis, dan persistensi localStorage.
- *
- * Dependencies:
- *   - bootstrap@5.3.x  (CSS + JS)
- *   - bootstrap-icons@1.13.x
- *   - ./SidebarLayout.scss
- *
- * ─── Named exports ────────────────────────────────────────────────────────────
- *
- *   useSidebarLayout()
- *     Hook untuk mengakses state dan kontrol sidebar dari mana saja.
- *
- *     Returns:
- *       primaryHidden        boolean
- *       secondaryHidden      boolean
- *       togglePrimary        () => void
- *       toggleSecondary      () => void
- *       setPrimaryHidden     (hidden: boolean) => void
- *       setSecondaryHidden   (hidden: boolean) => void
- *
- *   ── Tipe 1: Toggle hide (desktop) ──────────────────────────────────────────
- *   Menyembunyikan sidebar secara inline dengan class `.hide`.
- *   Cocok dipasang di navbar desktop (d-none d-sm-block, dll.).
- *
- *   PrimaryToggleButton  ({ children?, ...btnProps })
- *   SecondaryToggleButton({ children?, ...btnProps })
- *
- *   ── Tipe 2: Offcanvas trigger (mobile) ──────────────────────────────────────
- *   Membuka sidebar sebagai overlay Bootstrap offcanvas.
- *   Cocok dipasang di navbar mobile (d-sm-none, d-xl-none, dll.).
- *
- *   PrimaryOffcanvasButton  ({ children?, ...btnProps })
- *   SecondaryOffcanvasButton({ children?, ...btnProps })
- *
- * ─── Default export ───────────────────────────────────────────────────────────
- *
- *   <SidebarLayout
- *     navbarContent            ReactNode?  — konten di dalam <nav>
- *                                            header tidak dirender jika prop ini undefined
- *     primarySidebarContent    ReactNode   — tubuh sidebar kiri
- *     mainContent              ReactNode   — area utama
- *     secondarySidebarContent  ReactNode   — tubuh sidebar kanan
- *     footerContent            ReactNode   — footer (dihilangkan jika undefined)
- *     primaryMinWidth          string      — override --sl-primary-min-width   (default "48px")
- *     secondaryMinWidth        string      — override --sl-secondary-min-width (default "48px")
- *   />
- */
-
 import {
     useState,
     useEffect,
@@ -59,8 +7,6 @@ import {
     useContext,
 } from "react";
 import { useLocation } from "react-router-dom";
-
-// ─── Storage ──────────────────────────────────────────────────────────────────
 
 const KEY_PRIMARY = "layout:primarySidebarHidden";
 const KEY_SECONDARY = "layout:secondarySidebarHidden";
@@ -82,8 +28,6 @@ function writeStorage(key, value) {
     }
 }
 
-// ─── Context ──────────────────────────────────────────────────────────────────
-
 const SidebarLayoutContext = createContext(null);
 
 /**
@@ -98,13 +42,6 @@ export function useSidebarLayout() {
     return ctx;
 }
 
-// ─── Tipe 1: Toggle hide buttons (desktop) ───────────────────────────────────
-// Menyembunyikan sidebar secara inline dengan class `.hide`.
-
-/**
- * Tombol toggle hide untuk sidebar kiri (desktop).
- * Semua HTML button props diteruskan. `children` menimpa ikon default.
- */
 export function PrimaryToggleButton({ children, className = "", ...props }) {
     const { togglePrimary, primaryHidden } = useSidebarLayout();
     return (
@@ -121,10 +58,6 @@ export function PrimaryToggleButton({ children, className = "", ...props }) {
     );
 }
 
-/**
- * Tombol toggle hide untuk sidebar kanan (desktop).
- * Semua HTML button props diteruskan. `children` menimpa ikon default.
- */
 export function SecondaryToggleButton({ children, className = "", ...props }) {
     const { toggleSecondary, secondaryHidden } = useSidebarLayout();
     return (
@@ -141,13 +74,6 @@ export function SecondaryToggleButton({ children, className = "", ...props }) {
     );
 }
 
-// ─── Tipe 2: Offcanvas trigger buttons (mobile) ───────────────────────────────
-// Membuka sidebar sebagai overlay Bootstrap offcanvas.
-
-/**
- * Tombol offcanvas untuk sidebar kiri (mobile).
- * Semua HTML button props diteruskan. `children` menimpa ikon default.
- */
 export function PrimaryOffcanvasButton({ children, className = "", ...props }) {
     return (
         <button
@@ -185,7 +111,6 @@ export function SecondaryOffcanvasButton({ children, className = "", ...props })
         </button>
     );
 }
-// ─── Layout utama ─────────────────────────────────────────────────────────────
 
 export default function Layout({
     navbarContent,
@@ -233,7 +158,6 @@ export default function Layout({
         });
     }, []);
 
-    // ── Tinggi sidebar dinamis ──────────────────────────────────────────────────
     const headerRef = useRef(null);
     const [sidebarVars, setSidebarVars] = useState({});
 
@@ -267,7 +191,6 @@ export default function Layout({
 
     }, [location]);
 
-    // ── Context ─────────────────────────────────────────────────────────────────
     const ctx = {
         primaryHidden,
         secondaryHidden,
@@ -282,7 +205,6 @@ export default function Layout({
         "--sl-secondary-min-width": secondaryMinWidth,
     };
 
-    // ── Render ──────────────────────────────────────────────────────────────────
     return (
         <SidebarLayoutContext.Provider value={ctx}>
             <div style={rootVars}>
