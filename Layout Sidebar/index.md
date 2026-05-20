@@ -45,11 +45,10 @@ export default function Home() {
                 mainContent={
                     <>
                         <Header
-                            className="d-lg-none"
                             navs={
                                 <>
-                                    <SecondaryOffcanvasButton className="btn btn-light d-xl-none" />
-                                    <SecondaryToggleButton className="btn btn-light d-none d-xl-inline-flex" />
+                                    <SecondaryOffcanvasButton className="btn btn-custom-light d-xl-none" />
+                                    <SecondaryToggleButton className="btn btn-custom-light d-none d-xl-inline-flex" />
                                 </>
                             }
                         />
