@@ -1,0 +1,69 @@
+.toast-danger {
+    background: #fae9e9 !important;
+    border-color: #b93535 !important;
+    color: #b93535 !important;
+
+    .btn {
+        color: #b93535 !important;
+    }
+}
+
+.toast-warning {
+    background: #f9ece7 !important;
+    border-color: #af461d !important;
+    color: #af461d !important;
+
+    .btn {
+        color: #af461d !important;
+    }
+}
+
+.toast-success {
+    background: #eaf3dd !important;
+    border-color: #497a00 !important;
+    color: #497a00 !important;
+
+    .btn {
+        color: #497a00 !important;
+    }
+}
+
+.toast-info {
+    background: #e9f2fb !important;
+    border-color: #256bc1 !important;
+    color: #256bc1 !important;
+
+    .btn {
+        color: #256bc1 !important;
+    }
+}
+
+.toast-light {
+    background: #fff !important;
+    border-color: var(--bs-body-color) !important;
+    color: var(--bs-body-color) !important;
+
+    .btn {
+        color: var(--bs-body-color) !important;
+    }
+}
+
+.toast-dark {
+    background: var(--bs-body-color) !important;
+    border-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-bg) !important;
+
+    .btn {
+        color: var(--bs-body-bg) !important;
+    }
+}
+
+.toast-secondary {
+    background: #efeeeb !important;
+    border-color: #6e6c68 !important;
+    color: #6e6c68 !important;
+
+    .btn {
+        color: #6e6c68 !important;
+    }
+}
