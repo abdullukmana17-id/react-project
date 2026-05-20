@@ -17,6 +17,7 @@ const MENUS = [
                 <span className="ms-2">Content</span>
             </>
         ),
+        title: "Content",
         menus: [
             {
                 to: "/builder",
