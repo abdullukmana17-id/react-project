@@ -1,6 +1,7 @@
 # Layout Sidebar
 
 ## Tambah File Konfigurasi
+```txt
 src/
 ├── const/
 │   ├── Menu.jsx
@@ -13,3 +14,4 @@ src/
 │   ├── NavMenu.jsx
 │   ├── Sidebar.jsx
 │   └── index.jsx
+```
