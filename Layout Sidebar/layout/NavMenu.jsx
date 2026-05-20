@@ -2,6 +2,10 @@ import { useId, useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSidebarLayout } from ".";
 
+function hasCategory(obj) {
+    return obj.hasOwnProperty("category");
+}
+
 function useIsWide(breakpoint = 576) {
     const [isWide, setIsWide] = useState(() => window.innerWidth > breakpoint);
 
