@@ -1,45 +1,44 @@
-import User from "./User";
-
 const MENUS = [
     {
         to: "/",
-        title: "Muroja`ah",
+        title: "Dashboard",
         label: (
             <>
-                <i className="bi bi-crosshair2"></i>
-                <span className="ms-2">Muroja`ah</span>
+                <i className="bi bi-house"></i>
+                <span className="ms-2">Dashboard</span>
             </>
         )
     },
+
     {
-        to: "/quran",
-        title: "Al - Qur`an",
-        label: (
+        category: (
             <>
-                <i className="bi bi-inboxes"></i>
-                <span className="ms-2">Al - Qur`an</span>
+                <i className="bi bi-folder"></i>
+                <span className="ms-2">Content</span>
             </>
-        )
-    },
-    {
-        to: "/builder",
-        title: "Page Builder",
-        label: (
-            <>
-                <i className="bi bi-layout-text-window-reverse"></i>
-                <span className="ms-2">Page Builder</span>
-            </>
-        )
-    },
-    {
-        to: "/bandwidth",
-        title: "Bandwidth",
-        label: (
-            <>
-                <i className="bi bi-speedometer2"></i>
-                <span className="ms-2">Bandwidth</span>
-            </>
-        )
+        ),
+        menus: [
+            {
+                to: "/builder",
+                title: "Page Builder",
+                label: (
+                    <>
+                        <i className="bi bi-layout-text-window-reverse"></i>
+                        <span className="ms-2">Page Builder</span>
+                    </>
+                )
+            },
+            {
+                to: "/pages",
+                title: "Pages",
+                label: (
+                    <>
+                        <i className="bi bi-file-earmark-text"></i>
+                        <span className="ms-2">Pages</span>
+                    </>
+                )
+            }
+        ]
     }
 ];
 
