@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 
 const ICONS = {
-  success: "bi-check-circle-fill",
-  danger: "bi-x-circle-fill",
-  warning: "bi-exclamation-triangle-fill",
-  info: "bi-info-circle-fill",
-  primary: "bi-bell-fill",
-  secondary: "bi-chat-left-text-fill",
-  dark: "bi-moon-fill",
-  light: "bi-sun-fill"
+  success: "bi-check-circle",
+  danger: "bi-x-circle",
+  warning: "bi-exclamation-triangle",
+  info: "bi-info-circle",
+  primary: "bi-bell",
+  secondary: "bi-chat-left-text",
+  dark: "bi-moon",
+  light: "bi-sun"
 };
 
 const ToastItem = ({ toast, removeToast }) => {
@@ -41,14 +41,14 @@ const ToastItem = ({ toast, removeToast }) => {
   return (
     <div
       ref={ref}
-      className={`toast align-items-center text-bg-${toast.type} border-0 rounded-4 mb-2`}
+      className={`toast align-items-center toast-${toast.type} border shadow-sm rounded-4 mb-2`}
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
     >
-      <div className="d-flex align-items-start">
+      <div className="d-flex align-items-center">
         
-        <div className="ps-3 fs-4 pt-2 mt-1">
+        <div className="ps-3 fs-5">
           <i className={`bi ${iconClass}`}></i>
         </div>
 
@@ -59,7 +59,7 @@ const ToastItem = ({ toast, removeToast }) => {
 
         <button
           type="button"
-          className="btn btn-sm border-0 me-3 m-auto"
+          className="btn border-0 me-3 m-auto"
           data-bs-dismiss="toast"
           aria-label="Close"
         >
