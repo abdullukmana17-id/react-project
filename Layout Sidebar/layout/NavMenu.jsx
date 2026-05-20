@@ -52,7 +52,7 @@ function Accordion({ children }) {
     const accordionId = useId();
 
     return (
-        <div className="accordion" id={`accordion-${accordionId}`}>
+        <div className="accordion bg-transparent" id={`accordion-${accordionId}`}>
             {children}
         </div>
     );
@@ -87,21 +87,21 @@ function AccordionItem({ menus, depth = 0, showTooltips }) {
                 };
 
                 return (
-                    <div key={index} className="accordion-item p-0">
+                    <div key={index} className="accordion-item bg-transparent p-0">
                         {menu.to ? (
                             <NavLink
                                 {...commonProps}
                                 to={menu.to}
                                 end
                                 className={({ isActive }) =>
-                                    [baseClassName, isActive ? "btn-primary active text-nowrap" : "btn-light text-nowrap"]
+                                    [baseClassName, isActive ? "btn-custom-light active text-nowrap" : "btn-custom-light text-nowrap"]
                                         .join(" ")
                                 }
                             >
                                 {menu.label}
                             </NavLink>
                         ) : (
-                            <a {...commonProps} className={`${baseClassName} btn-light text-nowrap`} href={menu.href}>
+                            <a {...commonProps} className={`${baseClassName} btn-custom-light text-nowrap`} href={menu.href}>
                                 {menu.label}
                             </a>
                         )}
@@ -129,11 +129,11 @@ function AccordionCategory({ menu, depth, showTooltips }) {
     const isOpen = hasActiveChild(menu, pathname);
 
     return (
-        <div className="accordion-item">
-            <h2 className="accordion-header" id={safeHeaderId}>
+        <div className="accordion-item bg-transparent">
+            <h2 className="accordion-header bg-transparent" id={safeHeaderId}>
                 <button
                     className={[
-                        "accordion-button border btn btn-light p-2 py-0 rounded-2 mb-1 font-sans",
+                        "accordion-button border btn btn-custom-light p-2 py-0 rounded-2 mb-1 font-sans",
                         isOpen ? "" : "collapsed",
                         showTooltips ? "has-tooltip" : "",
                     ]
