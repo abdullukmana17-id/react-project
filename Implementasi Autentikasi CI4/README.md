@@ -22,3 +22,19 @@ public string $SMTPUser = "";
 public string $SMTPPass  "";
 public string $protocol = 'smtp';
 ```
+
+## Setup `Auth.php`
+Ubah bagian kode berikut
+```php
+public array $actions = [
+    'register' => null,
+    'login'    => null,
+];
+```
+menjadi 
+```php
+public array $actions = [
+    'register' => \CodeIgniter\Shield\Authentication\Actions\EmailActivator::class,
+    'login'    => \CodeIgniter\Shield\Authentication\Actions\Email2FA::class,
+];
+```
