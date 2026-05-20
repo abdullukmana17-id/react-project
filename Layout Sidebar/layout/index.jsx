@@ -1,0 +1,390 @@
+/**
+ * SidebarLayout.jsx
+ *
+ * Layout komponen dengan dual sidebar, Bootstrap 5 offcanvas,
+ * tinggi sidebar dinamis, dan persistensi localStorage.
+ *
+ * Dependencies:
+ *   - bootstrap@5.3.x  (CSS + JS)
+ *   - bootstrap-icons@1.13.x
+ *   - ./SidebarLayout.scss
+ *
+ * ─── Named exports ────────────────────────────────────────────────────────────
+ *
+ *   useSidebarLayout()
+ *     Hook untuk mengakses state dan kontrol sidebar dari mana saja.
+ *
+ *     Returns:
+ *       primaryHidden        boolean
+ *       secondaryHidden      boolean
+ *       togglePrimary        () => void
+ *       toggleSecondary      () => void
+ *       setPrimaryHidden     (hidden: boolean) => void
+ *       setSecondaryHidden   (hidden: boolean) => void
+ *
+ *   ── Tipe 1: Toggle hide (desktop) ──────────────────────────────────────────
+ *   Menyembunyikan sidebar secara inline dengan class `.hide`.
+ *   Cocok dipasang di navbar desktop (d-none d-sm-block, dll.).
+ *
+ *   PrimaryToggleButton  ({ children?, ...btnProps })
+ *   SecondaryToggleButton({ children?, ...btnProps })
+ *
+ *   ── Tipe 2: Offcanvas trigger (mobile) ──────────────────────────────────────
+ *   Membuka sidebar sebagai overlay Bootstrap offcanvas.
+ *   Cocok dipasang di navbar mobile (d-sm-none, d-xl-none, dll.).
+ *
+ *   PrimaryOffcanvasButton  ({ children?, ...btnProps })
+ *   SecondaryOffcanvasButton({ children?, ...btnProps })
+ *
+ * ─── Default export ───────────────────────────────────────────────────────────
+ *
+ *   <Layout
+ *     navbarContent            ReactNode?  — konten di dalam <nav>
+ *                                            header tidak dirender jika prop ini undefined
+ *     primarySidebarContent    ReactNode   — tubuh sidebar kiri
+ *     mainContent              ReactNode   — area utama
+ *     secondarySidebarContent  ReactNode   — tubuh sidebar kanan
+ *     footerContent            ReactNode   — footer (dihilangkan jika undefined)
+ *     primaryMinWidth          string      — override --sl-primary-min-width   (default "48px")
+ *     secondaryMinWidth        string      — override --sl-secondary-min-width (default "48px")
+ *   />
+ */
+
+import {
+    useState,
+    useEffect,
+    useRef,
+    useCallback,
+    createContext,
+    useContext,
+} from "react";
+import { useLocation } from "react-router-dom";
+
+// ─── Storage ──────────────────────────────────────────────────────────────────
+
+const KEY_PRIMARY = "layout:primarySidebarHidden";
+const KEY_SECONDARY = "layout:secondarySidebarHidden";
+
+function readStorage(key, fallback) {
+    try {
+        const raw = localStorage.getItem(key);
+        return raw !== null ? JSON.parse(raw) : fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+function writeStorage(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+        /* quota exceeded atau private browsing — diam saja */
+    }
+}
+
+// ─── Context ──────────────────────────────────────────────────────────────────
+
+const SidebarLayoutContext = createContext(null);
+
+/**
+ * useSidebarLayout
+ * Gunakan di dalam pohon <SidebarLayout> mana saja.
+ */
+export function useSidebarLayout() {
+    const ctx = useContext(SidebarLayoutContext);
+    if (!ctx) {
+        throw new Error("useSidebarLayout harus digunakan di dalam <SidebarLayout>.");
+    }
+    return ctx;
+}
+
+// ─── Tipe 1: Toggle hide buttons (desktop) ───────────────────────────────────
+// Menyembunyikan sidebar secara inline dengan class `.hide`.
+
+/**
+ * Tombol toggle hide untuk sidebar kiri (desktop).
+ * Semua HTML button props diteruskan. `children` menimpa ikon default.
+ */
+export function PrimaryToggleButton({ children, className = "", ...props }) {
+    const { togglePrimary, primaryHidden } = useSidebarLayout();
+    return (
+        <button
+            type="button"
+            className={`btn ${className}`}
+            onClick={togglePrimary}
+            aria-label="Toggle sidebar kiri"
+            aria-expanded={!primaryHidden}
+            {...props}
+        >
+            {children ?? <i className="bi bi-layout-sidebar" />}
+        </button>
+    );
+}
+
+/**
+ * Tombol toggle hide untuk sidebar kanan (desktop).
+ * Semua HTML button props diteruskan. `children` menimpa ikon default.
+ */
+export function SecondaryToggleButton({ children, className = "", ...props }) {
+    const { toggleSecondary, secondaryHidden } = useSidebarLayout();
+    return (
+        <button
+            type="button"
+            className={`btn ${className}`}
+            onClick={toggleSecondary}
+            aria-label="Toggle sidebar kanan"
+            aria-expanded={!secondaryHidden}
+            {...props}
+        >
+            {children ?? <i className="bi bi-layout-sidebar-reverse" />}
+        </button>
+    );
+}
+
+// ─── Tipe 2: Offcanvas trigger buttons (mobile) ───────────────────────────────
+// Membuka sidebar sebagai overlay Bootstrap offcanvas.
+
+/**
+ * Tombol offcanvas untuk sidebar kiri (mobile).
+ * Semua HTML button props diteruskan. `children` menimpa ikon default.
+ */
+export function PrimaryOffcanvasButton({ children, className = "", ...props }) {
+    return (
+        <button
+            type="button"
+            className={`btn ${className}`}
+            data-bs-toggle="offcanvas"
+            data-bs-target="#sl-primarySidebar"
+            aria-controls="sl-primarySidebar"
+            aria-expanded="false"
+            aria-label="Buka sidebar kiri"
+            {...props}
+        >
+            {children ?? <i className="bi bi-layout-sidebar-inset" />}
+        </button>
+    );
+}
+
+/**
+ * Tombol offcanvas untuk sidebar kanan (mobile).
+ * Semua HTML button props diteruskan. `children` menimpa ikon default.
+ */
+export function SecondaryOffcanvasButton({ children, className = "", ...props }) {
+    return (
+        <button
+            type="button"
+            className={`btn ${className}`}
+            data-bs-toggle="offcanvas"
+            data-bs-target="#sl-secondarySidebar"
+            aria-controls="sl-secondarySidebar"
+            aria-expanded="false"
+            aria-label="Buka sidebar kanan"
+            {...props}
+        >
+            {children ?? <i className="bi bi-layout-sidebar-inset-reverse" />}
+        </button>
+    );
+}
+// ─── Layout utama ─────────────────────────────────────────────────────────────
+
+export default function Layout({
+    navbarContent,
+    primarySidebarContent,            // ← opsional; sidebar tidak dirender jika undefined
+    mainContent,
+    secondarySidebarContent,          // ← opsional; sidebar tidak dirender jika undefined
+    footerContent,
+    primaryMinWidth = "48px",
+    secondaryMinWidth = "48px",
+}) {
+    const hasPrimary = primarySidebarContent !== undefined;
+    const hasSecondary = secondarySidebarContent !== undefined;
+
+    // ── State hide ──────────────────────────────────────────────────────────────
+    const [primaryHidden, _setPrimaryHidden] = useState(() =>
+        readStorage(KEY_PRIMARY, false)
+    );
+    const [secondaryHidden, _setSecondaryHidden] = useState(() =>
+        readStorage(KEY_SECONDARY, false)
+    );
+
+    const setPrimaryHidden = useCallback((value) => {
+        writeStorage(KEY_PRIMARY, value);
+        _setPrimaryHidden(value);
+    }, []);
+
+    const setSecondaryHidden = useCallback((value) => {
+        writeStorage(KEY_SECONDARY, value);
+        _setSecondaryHidden(value);
+    }, []);
+
+    const togglePrimary = useCallback(() => {
+        _setPrimaryHidden((prev) => {
+            const next = !prev;
+            writeStorage(KEY_PRIMARY, next);
+            return next;
+        });
+    }, []);
+
+    const toggleSecondary = useCallback(() => {
+        _setSecondaryHidden((prev) => {
+            const next = !prev;
+            writeStorage(KEY_SECONDARY, next);
+            return next;
+        });
+    }, []);
+
+    // ── Tinggi sidebar dinamis ──────────────────────────────────────────────────
+    const headerRef = useRef(null);
+    const [sidebarVars, setSidebarVars] = useState({});
+
+    const recalcDimensions = useCallback(() => {
+        const h = headerRef.current?.offsetHeight ?? 0;
+        setSidebarVars({
+            "--sl-sidebar-height": `${window.innerHeight - h}px`,
+            "--sl-sidebar-top": `${h}px`,
+        });
+    }, []);
+
+    useEffect(() => {
+        recalcDimensions();
+        window.addEventListener("resize", recalcDimensions);
+        return () => window.removeEventListener("resize", recalcDimensions);
+    }, [recalcDimensions]);
+
+    useEffect(() => {
+        const offcanvasElements = document.querySelectorAll(".offcanvas.show");
+
+        offcanvasElements.forEach((el) => {
+            const instance = bootstrap.Offcanvas.getInstance(el);
+            if (instance) {
+                instance.hide();
+            }
+        });
+
+        // fallback cleanup
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+
+    }, [location]);
+
+    // ── Context ─────────────────────────────────────────────────────────────────
+    const ctx = {
+        primaryHidden,
+        secondaryHidden,
+        togglePrimary,
+        toggleSecondary,
+        setPrimaryHidden,
+        setSecondaryHidden,
+    };
+
+    const rootVars = {
+        "--sl-primary-min-width": primaryMinWidth,
+        "--sl-secondary-min-width": secondaryMinWidth,
+    };
+
+    // ── Render ──────────────────────────────────────────────────────────────────
+    return (
+        <SidebarLayoutContext.Provider value={ctx}>
+            <div style={rootVars}>
+
+                {/* Header — hanya dirender jika navbarContent diberikan */}
+                {navbarContent !== undefined && (
+                    <header
+                        ref={headerRef}
+                        className="sl-header position-sticky top-0 bg-body"
+                    >
+                        <nav className="navbar">
+                            <div className="container-fluid gap-1 gap-sm-2 gap-md-3">
+
+                                {navbarContent}
+
+                                {/* Desktop: toggle hide — hanya jika sidebar ada */}
+                                {hasPrimary && <PrimaryToggleButton className="d-none d-sm-block" />}
+                                {hasSecondary && <SecondaryToggleButton className="d-none d-xl-block" />}
+
+                                {/* Mobile: offcanvas trigger — hanya jika sidebar ada */}
+                                {hasPrimary && <PrimaryOffcanvasButton className="d-sm-none" />}
+                                {hasSecondary && <SecondaryOffcanvasButton className="d-xl-none" />}
+
+                            </div>
+                        </nav>
+                    </header>
+                )}
+
+                {/* Body */}
+                <div className="container-fluid sl-primary-layout p-0">
+
+                    {/* Sidebar kiri — hanya dirender jika ada konten */}
+                    {hasPrimary && (
+                        <div
+                            id="sl-primarySidebar"
+                            className={[
+                                "sl-sidebar sl-sidebar--primary",
+                                "offcanvas-sm offcanvas-start border-end border-secondary-subtle",
+                                primaryHidden ? "hide" : "",
+                            ].filter(Boolean).join(" ")}
+                            style={sidebarVars}
+                            tabIndex={-1}
+                        >
+                            <div className="offcanvas-header border-bottom d-none">
+                                <button
+                                    type="button"
+                                    className="btn-close shadow-none ms-auto"
+                                    data-bs-target="#sl-primarySidebar"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Tutup"
+                                />
+                            </div>
+                            <div className="offcanvas-body p-0 h-100">
+                                {primarySidebarContent}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Konten utama + sidebar kanan */}
+                    <div className="sl-main-content sl-secondary-layout">
+                        <main>{mainContent}</main>
+
+                        {/* Sidebar kanan — hanya dirender jika ada konten */}
+                        {hasSecondary && (
+                            <aside
+                                id="sl-secondarySidebar"
+                                className={[
+                                    "sl-sidebar sl-sidebar--secondary",
+                                    "border-start offcanvas-end offcanvas-xl border-secondary-subtle",
+                                    secondaryHidden ? "hide" : "",
+                                ].filter(Boolean).join(" ")}
+                                style={sidebarVars}
+                                tabIndex={-1}
+                            >
+                                <div className="offcanvas-header border-bottom d-none">
+                                    <button
+                                        type="button"
+                                        className="btn-close shadow-none ms-auto"
+                                        data-bs-target="#sl-secondarySidebar"
+                                        data-bs-dismiss="offcanvas"
+                                        aria-label="Tutup"
+                                    />
+                                </div>
+                                <div className="offcanvas-body p-0 h-100">
+                                    {secondarySidebarContent}
+                                </div>
+                            </aside>
+                        )}
+                    </div>
+
+                </div>
+
+                {/* Footer */}
+                {footerContent && (
+                    <footer className="bg-body border-top border-secondary-subtle p-3 py-5">
+                        <div className="container">
+                            <div className="row g-2">{footerContent}</div>
+                        </div>
+                    </footer>
+                )}
+
+            </div>
+        </SidebarLayoutContext.Provider>
+    );
+}
