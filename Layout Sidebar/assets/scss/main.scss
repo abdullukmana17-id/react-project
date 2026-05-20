@@ -6,24 +6,50 @@
     --sl-primary-min-width: 48px;
     --sl-secondary-min-width: 0;
 
-    --primary-50:  #ffffff;
-    --primary-100: #fcfcfc;
-    --primary-200: #fafafa;
-    --primary-300: #f8f9f8;
-    --primary-400: #f7f8f7;
-    --primary-500: #f6f7f6;
-    --primary-600: #f5f6f5;
-    --primary-700: #f4f5f4;
-    --primary-800: #eef0ee;
-    --primary-900: #e8eae8;
-    --primary-950: #e2e4e2;
+    --primary-0:   #ffffff;
+    --primary-10:  #fdfdfc;
+    --primary-20:  #f8f8f6;
+    --primary-30:  #f6f6f4;
+    --primary-40:  #f4f4f1;
+    --primary-50:  #efeeeb;
+    --primary-60:  #edece8;
+    --primary-70:  #ebeae5;
+    --primary-80:  #e6e5e0;
+    --primary-90:  #e4e3dd;
+    --primary-100: #e2e1da;
 
-    --bs-body-bg: var(--primary-50) !important;
+    --primary-150: #d2d1c6;
+    --primary-200: #c3c2b7;
+    --primary-250: #b3b2a8;
+    --primary-300: #a6a59b;
+    --primary-350: #97958c;
+    --primary-400: #888681;
+    --primary-450: #7b7974;
+    --primary-500: #6e6c68;
+    --primary-550: #5f5d59;
+    --primary-600: #51504d;
+    --primary-650: #444341;
+    --primary-700: #373734;
+    --primary-750: #2c2c2a;
+
+    --primary-800: #1f1f1e;
+    --primary-810: #1f1f1e;
+    --primary-820: #1d1d1b;
+    --primary-830: #1a1a19;
+    --primary-840: #171716;
+    --primary-850: #141414;
+    --primary-860: #121212;
+    --primary-870: #121212;
+    --primary-880: #0f0f0f;
+    --primary-890: #0d0d0d;
+    --primary-900: #0a0a0a;
+
+    --bs-body-bg: var(--primary-10) !important;
 }
 
 .sl-sidebar {
-    background-color: var(--primary-100) !important;
-    border-color: var(--primary-200);
+    background-color: var(--primary-20) !important;
+    border-color: var(--primary-30);
 }
 
 .sl-primary-layout {
@@ -210,36 +236,36 @@
 }
 
 .bg-body {
-    background-color: var(--primary-100) !important;
+    background-color: var(--primary-10) !important;
 }
 
 .btn-custom-light {
     --bs-btn-font-weight: 600;
     --bs-btn-color: var(--bs-body-color);
-    --bs-btn-bg: var(--primary-50);
-    --bs-btn-border-color: var(--primary-100);
+    --bs-btn-bg: var(--primary-10);
+    --bs-btn-border-color: var(--primary-20);
     --bs-btn-hover-color: var(--bs-body-color);
-    --bs-btn-hover-bg: var(--primary-100);
-    --bs-btn-hover-border-color: var(--primary-200);
+    --bs-btn-hover-bg: var(--primary-20);
+    --bs-btn-hover-border-color: var(--primary-30);
     --bs-btn-focus-shadow-rgb: none;
     --bs-btn-active-color: var(--bs-body-color);
-    --bs-btn-active-bg: var(--primary-200);
-    --bs-btn-active-border-color: var(--primary-300);
+    --bs-btn-active-bg: var(--primary-30);
+    --bs-btn-active-border-color: var(--primary-40);
 }
 
 .sl-sidebar {
     .btn-custom-light {
         --bs-btn-font-weight: 600;
         --bs-btn-color: var(--bs-body-color);
-        --bs-btn-bg: var(--primary-100);
-        --bs-btn-border-color: var(--primary-200);
+        --bs-btn-bg: var(--primary-20);
+        --bs-btn-border-color: var(--primary-30);
         --bs-btn-hover-color: var(--bs-body-color);
-        --bs-btn-hover-bg: var(--primary-300);
-        --bs-btn-hover-border-color: var(--primary-400);
+        --bs-btn-hover-bg: var(--primary-30);
+        --bs-btn-hover-border-color: var(--primary-40);
         --bs-btn-focus-shadow-rgb: none;
         --bs-btn-active-color: var(--bs-body-color);
-        --bs-btn-active-bg: var(--primary-400);
-        --bs-btn-active-border-color: var(--primary-500);
+        --bs-btn-active-bg: var(--primary-40);
+        --bs-btn-active-border-color: var(--primary-50);
     }
 
     .accordion-button {
@@ -255,7 +281,7 @@
 
         &:not(.collapsed) {
             background-color: var(--bs-transparent) !important;
-            border-color: var(--primary-200) !important;
+            border-color: var(--primary-30) !important;
         }
     }
 }
