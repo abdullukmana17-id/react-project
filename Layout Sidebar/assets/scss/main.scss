@@ -5,7 +5,7 @@
     --sl-secondary-width: 18rem;
     --sl-primary-min-width: 48px;
     --sl-secondary-min-width: 0;
-    
+
     --primary-50:  #ffffff;
     --primary-100: #fcfcfc;
     --primary-200: #fafafa;
@@ -18,12 +18,12 @@
     --primary-900: #e8eae8;
     --primary-950: #e2e4e2;
 
-    --bs-body-bg: var(--primary-100) !important;
+    --bs-body-bg: var(--primary-50) !important;
 }
 
 .sl-sidebar {
-    background-color: var(--primary-200) !important;
-    border-color: var(--primary-300);
+    background-color: var(--primary-100) !important;
+    border-color: var(--primary-200);
 }
 
 .sl-primary-layout {
@@ -216,22 +216,22 @@
 .btn-custom-light {
     --bs-btn-font-weight: 600;
     --bs-btn-color: var(--bs-body-color);
-    --bs-btn-bg: var(--bs-body-bg);
-    --bs-btn-border-color: var(--primary-200);
+    --bs-btn-bg: var(--primary-50);
+    --bs-btn-border-color: var(--primary-100);
     --bs-btn-hover-color: var(--bs-body-color);
-    --bs-btn-hover-bg: var(--primary-200);
-    --bs-btn-hover-border-color: var(--primary-300);
+    --bs-btn-hover-bg: var(--primary-100);
+    --bs-btn-hover-border-color: var(--primary-200);
     --bs-btn-focus-shadow-rgb: none;
     --bs-btn-active-color: var(--bs-body-color);
-    --bs-btn-active-bg: var(--primary-300);
-    --bs-btn-active-border-color: var(--primary-400);
+    --bs-btn-active-bg: var(--primary-200);
+    --bs-btn-active-border-color: var(--primary-300);
 }
 
-.nav-menu {
+.sl-sidebar {
     .btn-custom-light {
         --bs-btn-font-weight: 600;
         --bs-btn-color: var(--bs-body-color);
-        --bs-btn-bg: var(--primary-200);
+        --bs-btn-bg: var(--primary-100);
         --bs-btn-border-color: var(--primary-200);
         --bs-btn-hover-color: var(--bs-body-color);
         --bs-btn-hover-bg: var(--primary-300);
