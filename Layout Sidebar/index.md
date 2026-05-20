@@ -18,20 +18,48 @@ src/
 
 ## Penggunaan `<Layout/>`
 ```jsx
-import SidebarLayout from "./Layout";
+import Sidebar from "../layout/Sidebar";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+import Layout, {
+    PrimaryToggleButton,
+    PrimaryOffcanvasButton,
+    SecondaryOffcanvasButton,
+    SecondaryToggleButton
+} from "../layout/index";
 
-export default function App() {
-  return (
-    <Layout
-      navbarContent={<div>Navbar saya</div>}
-      primarySidebarContent={<div>Menu kiri</div>}
-      mainContent={<div>Konten utama</div>}
-      secondarySidebarContent={<div>Widget kanan</div>}
-      footerContent={<div>Footer</div>}
-    >
-      <MyComponent />
-    </Layout>
-  );
+import "../assets/scss/main.scss"
+
+export default function Home() {
+    return (
+        <>
+            <Layout
+                primarySidebarContent={
+                    <Sidebar />
+                }
+                primaryMinWidth="calc(2.25rem + 1rem)"
+                secondarySidebarContent={
+                    <div>Widget kanan</div>
+                }
+                secondaryMinWidth="0"
+                mainContent={
+                    <>
+                        <Header
+                            className="d-lg-none"
+                            navs={
+                                <>
+                                    <SecondaryOffcanvasButton className="btn btn-light d-xl-none" />
+                                    <SecondaryToggleButton className="btn btn-light d-none d-xl-inline-flex" />
+                                </>
+                            }
+                        />
+                        <section className="vh-100"></section>
+                    </>
+                }
+            />
+            <Footer />
+        </>
+    )
 }
 ```
 
