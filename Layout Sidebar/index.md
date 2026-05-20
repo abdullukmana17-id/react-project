@@ -37,7 +37,7 @@ export default function App() {
 
 ## Mengakses state sidebar
 ```jsx
-import { useSidebarLayout } from "./SidebarLayout";
+import { useSidebarLayout } from "./Layout";
 
 function MyComponent() {
   const {
@@ -60,7 +60,7 @@ function MyComponent() {
 import {
   PrimaryToggleButton,
   SecondaryToggleButton
-} from "./SidebarLayout";
+} from "./Layout";
 
 function Navbar() {
   return (
@@ -76,7 +76,7 @@ function Navbar() {
 import {
   PrimaryOffcanvasButton,
   SecondaryOffcanvasButton
-} from "./SidebarLayout";
+} from "./Layout";
 
 function NavbarMobile() {
   return (
