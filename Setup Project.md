@@ -44,6 +44,9 @@ export default App;
 ## Edit `main.jsx`
 Hapus bagian `import './index.css'`
 
+## Edit `App.jsx`
+Hapus bagian `import './App.css'`
+
 ## Hapus beberapa file tidak terpakai
 Hafus file berikut:
 - `App.css`
