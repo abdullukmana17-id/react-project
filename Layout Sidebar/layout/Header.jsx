@@ -11,7 +11,7 @@ const Header = forwardRef(({ title, children, className, navs, ...props }, ref) 
             <div className="container-fluid">
                 <div className="row justify-content-center mt-1">
                     <div className="col-12 d-flex align-items-center gap-2">
-                        <PrimaryOffcanvasButton className="d-sm-none btn-light mt-1" />
+                        <PrimaryOffcanvasButton className="d-sm-none btn-custom-light mt-1" />
 
                         {title && (
                             <h1 className="mb-0 font-sans fw-normal fs-6 me-auto">
