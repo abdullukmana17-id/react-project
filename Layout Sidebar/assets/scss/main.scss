@@ -6,16 +6,16 @@
     --sl-primary-min-width: 48px;
     --sl-secondary-min-width: 0;
 
-    --primary-0:   #ffffff;
-    --primary-10:  #fdfdfc;
-    --primary-20:  #f8f8f6;
-    --primary-30:  #f6f6f4;
-    --primary-40:  #f4f4f1;
-    --primary-50:  #efeeeb;
-    --primary-60:  #edece8;
-    --primary-70:  #ebeae5;
-    --primary-80:  #e6e5e0;
-    --primary-90:  #e4e3dd;
+    --primary-0: #ffffff;
+    --primary-10: #fdfdfc;
+    --primary-20: #f8f8f6;
+    --primary-30: #f6f6f4;
+    --primary-40: #f4f4f1;
+    --primary-50: #efeeeb;
+    --primary-60: #edece8;
+    --primary-70: #ebeae5;
+    --primary-80: #e6e5e0;
+    --primary-90: #e4e3dd;
     --primary-100: #e2e1da;
 
     --primary-150: #d2d1c6;
@@ -101,7 +101,6 @@
             &.hide,
             &.hide .offcanvas-body {
                 width: var(--sl-primary-min-width);
-                overflow-x: hidden;
 
                 .navbar-brand {
                     display: none;
