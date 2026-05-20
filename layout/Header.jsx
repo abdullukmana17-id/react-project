@@ -1,6 +1,5 @@
 import { forwardRef } from "react";
 import { PrimaryOffcanvasButton } from ".";
-import Settings from "../pages/Settings";
 
 const Header = forwardRef(({ title, children, className, settings = true, navs, ...props }, ref) => {
     return (
@@ -20,12 +19,6 @@ const Header = forwardRef(({ title, children, className, settings = true, navs, 
                                     <small>{title}</small>
                                 </h1>
                                 {navs}
-                                {settings && (
-                                    <button type="button" className="btn btn-light" data-bs-target="#pengaturanModal" data-bs-toggle="modal">
-                                        <i className="bi bi-gear-wide-connected"></i>
-                                        <span className="ms-2 d-none d-md-inline">Pengaturan</span>
-                                    </button>
-                                )}
                             </>
                         )}
                     </div>
@@ -33,7 +26,6 @@ const Header = forwardRef(({ title, children, className, settings = true, navs, 
             </div>
 
             {children}
-            <Settings />
         </header>
     );
 });
