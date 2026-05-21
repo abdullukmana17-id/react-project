@@ -37,6 +37,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->options('(:any)', static function () {});
 });
+```
 
 ## Restfull API
 ### Mengambil data user
