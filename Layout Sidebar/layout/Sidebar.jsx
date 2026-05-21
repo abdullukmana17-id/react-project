@@ -27,15 +27,12 @@ export default function Sidebar() {
                         <div className="btn-group dropup w-100">
                             <button
                                 type="button"
-                                className="btn btn-custom-light w-100 text-start d-flex align-items-center justify-content-between p-2 rounded-3"
+                                className="btn btn-custom-light w-100 text-start d-flex align-items-center justify-content-center p-2 rounded-3"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                <span>
-                                    <i className="bi bi-gear me-2"></i>
-                                    Menu
-                                </span>
-                                <i className="bi bi-chevron-up"></i>
+                                <i className="bi bi-gear me-2"></i>
+                                <span className="flex-grow-1">Menu</span>
                             </button>
 
                             <ul className="dropdown-menu w-100 mb-1 mx-0 p-1">
