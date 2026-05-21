@@ -39,8 +39,9 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
 ## Restfull API
 ### Mengambil data user
+#### Method
+GET
 #### Endpoint
-**Method: GET**
 ```http
 http://localhost:8080/api/users?page=1&perPage=20
 ```
