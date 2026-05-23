@@ -10,25 +10,6 @@ http://localhost:8080/api/users?page=1&perPage=20
 ```json
 {
     "data": {
-        "2": {
-            "id": 2,
-            "username": "abdullukmana",
-            "status": null,
-            "status_message": null,
-            "active": true,
-            "last_active": null,
-            "created_at": {
-                "date": "2026-05-20 06:54:46.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            },
-            "updated_at": {
-                "date": "2026-05-20 08:08:11.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            },
-            "deleted_at": null
-        },
         "3": {
             "id": 3,
             "username": "johndoe",
@@ -65,7 +46,7 @@ http://localhost:8080/api/users?page=1&perPage=20
 }
 ```
 
-### Mengambil data user berdasarkan USer ID
+### Mengambil data user berdasarkan User ID
 #### Method 
 GET
 #### Endpoint
@@ -77,8 +58,8 @@ http://localhost:8080/api/users/2
 {
     "user": {
         "id": 2,
-        "username": "abdullukmana",
-        "email": "abdullukmana17@gmail.com",
+        "username": "micahelsmith",
+        "email": "michaelsmith17@gmail.com",
         "groups": [
             "user",
             "admin"
