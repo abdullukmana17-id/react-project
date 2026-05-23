@@ -95,3 +95,12 @@ http://localhost:8080/api/users/2
     }
 }
 ```
+```json
+{
+    "status": 404,
+    "error": 404,
+    "messages": {
+        "error": "User tidak ditemukan."
+    }
+}
+```
