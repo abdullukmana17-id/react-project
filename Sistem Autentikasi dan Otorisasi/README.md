@@ -13,10 +13,9 @@ http://localhost:8080/api/users?page=1&perPage=20
         "3": {
             "id": 3,
             "username": "johndoe",
-            "status": "banned",
-            "status_message": "Toxic",
+            "email": "johndoe@gmail.com",
             "active": false,
-            "last_active": null,
+            "status": "banned",
             "created_at": {
                 "date": "2026-05-20 07:00:26.000000",
                 "timezone_type": 3,
@@ -27,7 +26,12 @@ http://localhost:8080/api/users?page=1&perPage=20
                 "timezone_type": 3,
                 "timezone": "UTC"
             },
-            "deleted_at": null
+            "groups": [
+                "user"
+            ],
+            "permissions": [
+                "users.create"
+            ]
         }
     },
     "meta": {
