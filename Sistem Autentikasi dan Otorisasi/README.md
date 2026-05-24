@@ -749,3 +749,48 @@ http://localhost:8080/api/authorization/matrix
   }
 }
 ```
+
+### Ubah Password
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/password/change
+```
+#### Request
+```json
+{
+    "current_password": "",
+    "password": "",
+    "password_confirm": ""
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "status": true,
+  "message": "Password berhasil diubah."
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "current_password": "The current_password field is required.",
+    "password": "The password field is required.",
+    "password_confirm": "The password_confirm field is required."
+  }
+}
+```
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "current_password": "Password saat ini salah."
+  }
+}
+```
