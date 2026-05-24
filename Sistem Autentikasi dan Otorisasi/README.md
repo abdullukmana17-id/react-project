@@ -592,3 +592,160 @@ http://localhost:8080/api/users/{id}/permissions
   }
 }
 ```
+### Aktivasi pengguna
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/activate
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil diaktifkan."
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Deaktivasi pengguna
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/activate
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil dinonaktifkan."
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Daftar role default, perizinan, role.
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/authorization
+```
+#### Response
+```json
+{
+  "default_group": "user",
+  "groups": [
+    {
+      "name": "superadmin",
+      "title": "Super Admin",
+      "description": "Complete control of the site.",
+      "permissions": [
+        "admin.*",
+        "users.*",
+        "beta.*"
+      ]
+    },
+    {
+      "name": "admin",
+      "title": "Admin",
+      "description": "Day to day administrators of the site.",
+      "permissions": [
+        "admin.access",
+        "users.create",
+        "users.edit",
+        "users.delete",
+        "beta.access"
+      ]
+    }
+  ],
+  "permissions": [
+    {
+      "name": "admin.access",
+      "scope": "admin",
+      "action": "access",
+      "description": "Can access the sites admin area"
+    }
+  ]
+}
+```
+
+### Daftar role
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/authorization/groups
+```
+#### Response
+```json
+{
+  "default_group": "user",
+  "groups": [
+    {
+      "name": "superadmin",
+      "title": "Super Admin",
+      "description": "Complete control of the site."
+    }
+  ]
+}
+```
+
+### Daftar izin
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/authorization/permissions
+```
+#### Response
+```json
+{
+  "permissions": [
+    {
+      "name": "admin.access",
+      "scope": "admin",
+      "action": "access",
+      "description": "Can access the sites admin area"
+    }
+  ]
+}
+```
+
+### Daftar relasi role dengan perizinan
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/authorization/matrix
+```
+#### Response
+```json
+{
+  "matrix": {
+    "superadmin": [
+      "admin.*",
+      "users.*",
+      "beta.*"
+    ]
+  }
+}
+```
