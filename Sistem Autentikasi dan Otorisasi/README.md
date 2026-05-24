@@ -51,9 +51,10 @@ http://localhost:8080/api/users?page=1&perPage=20
 GET
 #### Endpoint
 ```http
-http://localhost:8080/api/users/2
+http://localhost:8080/api/users/{id}
 ```
 #### Response
+##### Sukses
 ```json
 {
     "user": {
@@ -76,6 +77,7 @@ http://localhost:8080/api/users/2
     }
 }
 ```
+##### Gagal
 ```json
 {
     "status": 404,
@@ -83,5 +85,510 @@ http://localhost:8080/api/users/2
     "messages": {
         "error": "User tidak ditemukan."
     }
+}
+```
+### Menambah pengguna
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/
+```
+#### Request
+```json
+{
+  "email": "johnson@gmail.com",
+  "username": "johnson",
+  "password": "123456789"
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil dibuat.",
+  "user": {
+    "id": 8,
+    "username": "johnson",
+    "email": "johnson@gmail.com"
+  }
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "password": "The password field is required."
+  }
+}
+```
+### Mengubah data pengguna
+#### Method
+PATCH/PUT
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}
+```
+#### Request
+{
+  "email": "johnson@gmail.com",
+  "username": "johnson",
+  "password": "123456789"
+}
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil diperbarui.",
+  "user": {
+    "id": 8,
+    "username": "johnson",
+    "email": "johnson.officoal@gmail.com"
+  }
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+### Menghapus data pengguna
+#### Method
+DELETE
+#### Endpoint
+```http
+http://localhost:8080/api/users
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil dihapus.",
+  "id": "8"
+}
+```
+
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Status Ban Pengguna Terdaftar
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/ban-status
+```
+#### Response
+##### Sukses
+```json
+{
+  "user_id": 7,
+  "banned": false,
+  "reason": null
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+### Ban Pengguna Terdaftar
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/ban
+```
+#### Request
+```json
+{
+    "reason": "Hello World!"
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil dibanned.",
+  "user_id": 7,
+  "reason": "Hello World!"
+}
+```
+###### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Unban Pengguna Terdaftar
+#### Method
+POST
+#### Endpoint
+```http
+http:localhost:8080/api/users/{id}/unban
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "User berhasil di-unban.",
+  "user_id": 7
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Pesan banned pengguna terdaftar
+#### Method
+GET
+#### Endpoint
+```http
+http:localhost:8080/api/users/{id}/ban-message
+```
+#### Response
+##### Sukses
+```json
+{
+  "user_id": 7,
+  "banned": true,
+  "message": "Hello World!"
+}
+```
+
+### Daftar Role Pengguna
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/groups
+```
+#### Response
+##### Sukses
+```json
+{
+  "user_id": 7,
+  "groups": [
+    "user"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Menambah Role Pengguna
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/groups
+```
+#### Request
+```json
+{
+  "groups": [
+    "admin"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Group berhasil ditambahkan.",
+  "groups": [
+    "user",
+    "admin"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "groups": "supervisor is not a valid group."
+  }
+}
+```
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Update Role Pengguna
+#### Method
+PUT
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/groups
+```
+#### Request
+```json
+{
+  "groups": [
+    "admin"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Groups berhasil disinkronisasi.",
+  "groups": [
+    "admin"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "groups": "supervisor is not a valid group."
+  }
+}
+```
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Menghapus role pengguna
+#### Method
+DELETE
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/groups
+```
+#### Request
+```json
+{
+  "groups": [
+    "supervisor"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Group berhasil dihapus.",
+  "groups": [
+    "admin"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Daftar izin pengguna terdaftar
+#### Method
+GET
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/permissions
+```
+#### Response
+##### Sukses
+```json
+{
+  "user_id": 7,
+  "permissions": []
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+
+### Menambah izin penggunan terdaftar
+#### Method
+POST
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/permissions
+```
+#### Request
+```json
+{
+  "permissions": [
+    "users.create"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Permission berhasil ditambahkan.",
+  "permissions": [
+    "users.create"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "permissions": "users.super is not a valid permission."
+  }
+}
+```
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+### Update izin pengguna terdaftar
+#### Method
+PUT
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/permissions
+```
+#### Request
+```json
+{
+  "permissions": [
+    "users.create"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Permissions berhasil disinkronisasi.",
+  "permissions": [
+    "users.create"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 400,
+  "error": 400,
+  "messages": {
+    "permissions": "users.super is not a valid permission."
+  }
+}
+```
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
+}
+```
+### Menghapus izin pengguna terdaftar
+#### Method
+DELETE
+#### Endpoint
+```http
+http://localhost:8080/api/users/{id}/permissions
+```
+#### Request
+```json
+{
+  "permissions": [
+    "users.super"
+  ]
+}
+```
+#### Response
+##### Sukses
+```json
+{
+  "message": "Permission berhasil dihapus.",
+  "permissions": [
+    "users.create"
+  ]
+}
+```
+##### Gagal
+```json
+{
+  "status": 404,
+  "error": 404,
+  "messages": {
+    "error": "User tidak ditemukan."
+  }
 }
 ```
